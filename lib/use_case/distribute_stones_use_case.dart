@@ -1,42 +1,44 @@
 import 'package:domino_get_all_moves/entity/stone_entity.dart';
 
 class DistributeStonesUseCase {
-  static const _initialStones = [
-    StoneEntity(0, 0),
-    StoneEntity(0, 1),
-    StoneEntity(0, 2),
-    StoneEntity(0, 3),
-    StoneEntity(0, 4),
-    StoneEntity(0, 5),
-    StoneEntity(0, 6),
-    StoneEntity(1, 1),
-    StoneEntity(1, 2),
-    StoneEntity(1, 3),
-    StoneEntity(1, 4),
-    StoneEntity(1, 5),
-    StoneEntity(1, 6),
-    StoneEntity(2, 2),
-    StoneEntity(2, 3),
-    StoneEntity(2, 4),
-    StoneEntity(2, 5),
-    StoneEntity(2, 6),
-    StoneEntity(3, 3),
-    StoneEntity(3, 4),
-    StoneEntity(3, 5),
-    StoneEntity(3, 6),
-    StoneEntity(4, 4),
-    StoneEntity(4, 5),
-    StoneEntity(4, 6),
-    StoneEntity(5, 5),
-    StoneEntity(5, 6),
-    StoneEntity(6, 6),
+  static final _initialStones = [
+    StoneEntity(id: 0, digit1: 0, digit2: 0),
+    StoneEntity(id: 1, digit1: 0, digit2: 1),
+    StoneEntity(id: 2, digit1: 0, digit2: 2),
+    StoneEntity(id: 3, digit1: 0, digit2: 3),
+    StoneEntity(id: 4, digit1: 0, digit2: 4),
+    StoneEntity(id: 5, digit1: 0, digit2: 5),
+    StoneEntity(id: 6, digit1: 0, digit2: 6),
+    StoneEntity(id: 7, digit1: 1, digit2: 1),
+    StoneEntity(id: 8, digit1: 1, digit2: 2),
+    StoneEntity(id: 9, digit1: 1, digit2: 3),
+    StoneEntity(id: 10, digit1: 1, digit2: 4),
+    StoneEntity(id: 11, digit1: 1, digit2: 5),
+    StoneEntity(id: 12, digit1: 1, digit2: 6),
+    StoneEntity(id: 13, digit1: 2, digit2: 2),
+    StoneEntity(id: 14, digit1: 2, digit2: 3),
+    StoneEntity(id: 15, digit1: 2, digit2: 4),
+    StoneEntity(id: 16, digit1: 2, digit2: 5),
+    StoneEntity(id: 17, digit1: 2, digit2: 6),
+    StoneEntity(id: 18, digit1: 3, digit2: 3),
+    StoneEntity(id: 19, digit1: 3, digit2: 4),
+    StoneEntity(id: 20, digit1: 3, digit2: 5),
+    StoneEntity(id: 21, digit1: 3, digit2: 6),
+    StoneEntity(id: 22, digit1: 4, digit2: 4),
+    StoneEntity(id: 23, digit1: 4, digit2: 5),
+    StoneEntity(id: 24, digit1: 4, digit2: 6),
+    StoneEntity(id: 25, digit1: 5, digit2: 5),
+    StoneEntity(id: 26, digit1: 5, digit2: 6),
+    StoneEntity(id: 27, digit1: 6, digit2: 6),
   ];
 
-  List<StoneEntity> call() {
+  List<StoneEntity> execute() {
     final stones = _initialStones;
 
     do {
       stones.shuffle();
+      // The first player takes the first 7 stones,
+      // the second player takes the second 7 stones, etc.
       for (var i = 0; i < stones.length; i++) {
         final player =
             i < 7
@@ -47,7 +49,7 @@ class DistributeStonesUseCase {
                 ? 3
                 : 4;
 
-        stones[i] = stones[i].withPosition(player);
+        stones[i] = stones[i].copyWithPosition(player);
       }
     } while (_isBadDistribution(stones));
 
